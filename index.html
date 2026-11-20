@@ -442,7 +442,7 @@ function rowsToEvents(rows) {
       id: get(r, "event id") || "row-" + (i + 2), title, organizer: get(r, "organizer") || get(r, "organiser"), _date: date,
       start: padTime(get(r, "start")) || "TBA", end: padTime(get(r, "end")) || "late", genres,
       style: splitList(get(r, "style")), lineup: splitList(get(r, "lineup")),
-      venue: get(r, "venue") || "Venue to be announced", area: get(r, "area"),
+      venue: get(r, "venue") || "Venue TBA", area: get(r, "area"),
       ticket: { status, price: get(r, "price") || "Price TBA", onSaleNote: note, saleAt, saleDateOnly,
         updated: upd ? Math.max(0, Math.round((Date.now() - upd) / 60000)) : null },
       links
