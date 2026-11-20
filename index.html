@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RaveRadar – upcoming raves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cover: url("https://images.unsplash.com/photo-1720623784273-f9388b9aa535?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D");
+  --bg: #f3f0fa;
+  --surface: #ffffff;
+  --surface-2: #e9e4f5;
+  --ink: #1b1030;
+  --ink-soft: #5d5275;
+  --line: #d6cdea;
+  --uv: #6d28d9;
+  --uv-ink: #ffffff;
+  --ok: #0f7a4a;
+  --warn: #a35a00;
+  --bad: #b4234d;
+  --info: #2756b8;
+  --g-techno: #6d28d9;
+  --g-house: #d9387a;
+  --g-dnb: #0e8a7a;
+  --g-trance: #2f6fe0;
+  --g-dubstep: #4f7d12;
+  --g-hard: #c2410c;
+  --g-psy: #a21caf;
+  --g-garage: #b8860b;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #140a26; --surface: #1f1238; --surface-2: #2a1a4a; --ink: #f2ecff; --ink-soft: #b3a6d1;
+    --line: #3a2a5e; --uv: #a78bfa; --uv-ink: #140a26; --ok: #4ade9a; --warn: #fbbf4b; --bad: #fb7194; --info: #7aa7ff;
+    --g-techno: #a78bfa; --g-house: #ff6fae; --g-dnb: #2ee6c8; --g-trance: #6ea8ff; --g-dubstep: #a6e34a;
+    --g-hard: #ff8a4c; --g-psy: #f472f6; --g-garage: #ffd34d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #140a26; --surface: #1f1238; --surface-2: #2a1a4a; --ink: #f2ecff; --ink-soft: #b3a6d1;
+  --line: #3a2a5e; --uv: #a78bfa; --uv-ink: #140a26; --ok: #4ade9a; --warn: #fbbf4b; --bad: #fb7194; --info: #7aa7ff;
+  --g-techno: #a78bfa; --g-house: #ff6fae; --g-dnb: #2ee6c8; --g-trance: #6ea8ff; --g-dubstep: #a6e34a;
+  --g-hard: #ff8a4c; --g-psy: #f472f6; --g-garage: #ffd34d; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { height: 100%; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 140px); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 1rem/1.55 "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--uv); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+
+/* Hero */
+header.hero { padding-top: clamp(28px, 6vw, 64px); padding-bottom: clamp(28px, 5vw, 56px); }
+.brand { font: 600 .95rem/1 "Unbounded", system-ui, sans-serif; letter-spacing: .02em; color: var(--ink-soft); margin: 0 0 clamp(20px, 4vw, 40px); display: flex; justify-content: space-between; align-items: center; }
+.brand button { font: 500 .85rem "Manrope", sans-serif; background: none; border: 1px solid var(--line); color: var(--ink-soft); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+h1 {
+  font: 800 clamp(2.4rem, 9vw, 6.4rem)/.92 "Unbounded", system-ui, sans-serif;
+  letter-spacing: -.03em; margin: 0; max-width: 12ch;
+}
+h1 .count { display: block; font-weight: 400; color: var(--ink-soft); font-size: .42em; letter-spacing: -.01em; margin-top: .5em; line-height: 1.2; }
+
+
+/* Cover photo hero */
+header.hero {
+  position: relative; isolation: isolate; color: #fff;
+  background-color: #12062a;
+  background-image:
+    linear-gradient(180deg, rgba(10, 4, 24, .55) 0%, rgba(10, 4, 24, .35) 40%, rgba(10, 4, 24, .88) 100%),
+    var(--cover);
+  background-size: cover; background-position: center 45%;
+}
+header.hero .brand { color: #fff; }
+header.hero .logo { font-weight: 800; font-size: 1.05rem; letter-spacing: -.01em; }
+header.hero .brand button { color: #fff; border-color: rgba(255, 255, 255, .45); background: rgba(10, 4, 24, .25); }
+header.hero h1 { color: #fff; text-shadow: 0 2px 24px rgba(10, 4, 24, .5); }
+header.hero h1 .count { color: rgba(255, 255, 255, .82); }
+header.hero .period { background: rgba(255, 255, 255, .14); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+header.hero .period button { color: rgba(255, 255, 255, .85); }
+header.hero .period button[aria-pressed="true"] { background: #fff; color: #1b1030; }
+header.hero .source { color: rgba(255, 255, 255, .85); }
+.source[hidden] { display: none; }
+header.hero .source button { color: #fff; border-color: #fff; }
+
+/* Period switch */
+.period { display: inline-flex; margin-top: 28px; background: var(--surface-2); border-radius: 999px; padding: 5px; gap: 4px; }
+.period button {
+  font: 600 clamp(.85rem, 2.4vw, 1rem) "Unbounded", system-ui, sans-serif; border: 0; background: transparent; color: var(--ink-soft);
+  padding: 10px clamp(14px, 3vw, 24px); border-radius: 999px; cursor: pointer;
+}
+.period button[aria-pressed="true"] { background: var(--uv); color: var(--uv-ink); }
+.source { margin: 16px 0 0; font-size: .9rem; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+.source .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-soft); display: inline-block; margin-right: 6px; }
+.source[data-state="live"] .dot { background: var(--ok); }
+.source[data-state="error"] .dot { background: var(--warn); }
+.source a { color: var(--ink); font-weight: 600; text-underline-offset: 3px; }
+.source button { font: 600 .85rem "Manrope", sans-serif; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+
+/* Sticky filter bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding: 12px 0; }
+.bar-inner { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.chips { display: flex; gap: 6px; overflow-x: auto; flex: 1 1 420px; padding-bottom: 2px; padding-right: 24px; scrollbar-width: thin;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+.chip {
+  --c: var(--ink-soft); flex: none; font: 600 .85rem "Manrope", sans-serif; border: 1.5px solid var(--c); color: var(--c);
+  background: transparent; border-radius: 999px; padding: 5px 12px; cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--c); color: var(--bg); }
+.controls { display: flex; gap: 8px; flex: 1 1 280px; }
+.controls input, .controls select {
+  font: 500 .9rem "Manrope", sans-serif; background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 10px; padding: 8px 12px; min-width: 0;
+}
+.controls input { flex: 1; }
+
+/* Date strip */
+.strip { display: flex; gap: 6px; overflow-x: auto; padding: 18px 0 6px; scrollbar-width: thin; }
+.day {
+  flex: none; min-width: 58px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 8px 12px 7px; white-space: nowrap; cursor: pointer; color: var(--ink); font: inherit;
+}
+.day[disabled] { opacity: .4; cursor: default; }
+.day .dw { font-size: .72rem; color: var(--ink-soft); display: block; }
+.day .dn { font: 600 1.15rem/1.2 "Unbounded", sans-serif; display: block; }
+.day .dots { display: flex; justify-content: center; gap: 3px; height: 6px; margin-top: 4px; }
+.day .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+
+/* Day groups */
+main { padding-bottom: 24px; }
+.group { margin-top: 34px; }
+.group h2 { font: 600 clamp(1.15rem, 3vw, 1.5rem)/1.2 "Unbounded", sans-serif; margin: 0 0 14px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.group h2 small { font: 500 .9rem "Manrope", sans-serif; color: var(--ink-soft); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 14px; }
+
+/* Event card: styled like a flyer stub */
+.ev {
+  --c: var(--uv); background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.ev-top { background: var(--band, var(--c)); color: var(--bg); padding: 12px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; }
+.ev-top .genre { font: 800 1rem "Unbounded", sans-serif; }
+.ev-top .time { font-weight: 700; font-size: .9rem; white-space: nowrap; }
+.ev-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.ev h3 { font: 600 1.2rem/1.2 "Unbounded", sans-serif; margin: 0; }
+.ev .org { margin: -6px 0 0; font-size: .88rem; color: var(--ink-soft); }
+.ev .org strong { color: var(--ink); font-weight: 600; }
+.org-link { font: inherit; font-weight: 600; color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.org-link:hover { text-decoration-color: var(--ink); }
+.controls { flex-wrap: wrap; }
+.controls input { flex: 2 1 180px; }
+.controls select { flex: 1 1 140px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: .78rem; font-weight: 600; background: var(--surface-2); color: var(--ink-soft); padding: 2px 9px; border-radius: 999px; }
+.lineup { margin: 0; color: var(--ink); font-weight: 500; }
+.lineup span { color: var(--ink-soft); font-weight: 400; }
+.venue { margin: 0; font-size: .92rem; color: var(--ink-soft); }
+.venue a { color: var(--ink); font-weight: 600; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.tix { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 12px; background: var(--surface-2); border-radius: 10px; font-size: .88rem; }
+.status { font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.s-onsale { color: var(--ok); } .s-low { color: var(--warn); } .s-soldout { color: var(--bad); } .s-soon { color: var(--info); } .s-door { color: var(--ink-soft); }
+.price { font-weight: 700; }
+.updated { color: var(--ink-soft); margin-left: auto; font-size: .8rem; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 4px; }
+.btn {
+  font: 700 .88rem "Manrope", sans-serif; text-decoration: none; border-radius: 999px; padding: 8px 14px;
+  border: 1.5px solid var(--line); color: var(--ink); background: transparent;
+}
+.btn:hover { border-color: var(--ink-soft); }
+.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn.primary:hover { background: var(--uv); border-color: var(--uv); color: var(--uv-ink); }
+.btn.muted { opacity: .7; }
+
+.empty { margin: 60px 0; padding: 32px; border: 2px dashed var(--line); border-radius: 16px; text-align: center; color: var(--ink-soft); }
+.empty strong { display: block; color: var(--ink); font: 600 1.2rem "Unbounded", sans-serif; margin-bottom: 6px; }
+.empty button { margin-top: 14px; }
+/* Footer */
+.site-footer { background: var(--surface); border-top: 1px solid var(--line); margin-top: 40px; color: var(--ink-soft); font-size: .92rem; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 32px 28px; padding-top: 48px; padding-bottom: 36px; }
+.footer-logo { font: 800 1.5rem/1 "Unbounded", system-ui, sans-serif; letter-spacing: -.02em; color: var(--ink); margin: 0 0 12px; }
+.footer-brand p:last-child { margin: 0; max-width: 34ch; }
+.footer-col h2 { font: 600 .95rem "Unbounded", system-ui, sans-serif; color: var(--ink); margin: 0 0 12px; }
+.footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.footer-col li button { font: inherit; color: var(--ink-soft); background: none; border: 0; padding: 4px 0; cursor: pointer; text-align: left; }
+.footer-col li button:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-col p { margin: 0 0 14px; }
+.footer-cta { display: inline-flex; }
+.footer-bottom { border-top: 1px solid var(--line); padding-top: 20px; padding-bottom: calc(28px + 64px); display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: .84rem; }
+.footer-bottom p { margin: 0; }
+.footer-bottom p:last-child { margin-left: auto; }
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
+@media (max-width: 420px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom p:last-child { margin-left: 0; } }
+
+/* Scroll to top */
+.to-top-wrap {
+  position: fixed; right: 0; bottom: 0; z-index: 6; pointer-events: none;
+  padding: 0 clamp(14px, 3vw, 28px) calc(clamp(14px, 3vw, 28px) + env(safe-area-inset-bottom, 0px));
+}
+.to-top {
+  pointer-events: auto; font: 600 .9rem "Unbounded", system-ui, sans-serif; display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: var(--bg); border: 0; border-radius: 999px; padding: 12px 18px; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(40, 10, 90, .35);
+  opacity: 0; transform: translateY(12px); visibility: hidden;
+  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+}
+.to-top.show { opacity: 1; transform: none; visibility: visible; transition: opacity .2s ease, transform .2s ease; }
+.to-top:hover { background: var(--uv); color: var(--uv-ink); }
+.to-top svg { width: 16px; height: 16px; }
+@media (prefers-reduced-motion: reduce) { .to-top, .to-top.show { transition: none; } }
+
+/* Filters toggle (shown on phones and short landscape screens) */
+.filter-toggle {
+  display: none; flex: none; align-items: center; gap: 6px; font: 700 .85rem "Manrope", sans-serif;
+  background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer;
+}
+.filter-toggle[aria-expanded="true"] { border-color: var(--ink); }
+.filter-toggle svg { width: 14px; height: 14px; }
+
+/* Respect notches and rounded corners in landscape */
+.wrap {
+  padding-left: max(clamp(16px, 4vw, 40px), env(safe-area-inset-left, 0px));
+  padding-right: max(clamp(16px, 4vw, 40px), env(safe-area-inset-right, 0px));
+}
+.to-top-wrap { padding-right: max(clamp(14px, 3vw, 28px), env(safe-area-inset-right, 0px)); }
+
+/* Tablets */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .bar-inner { gap: 10px 12px; }
+  .chips { flex: 1 1 100%; }
+  .controls { flex: 1 1 100%; flex-wrap: nowrap; }
+}
+
+/* Phones, plus phones turned sideways: collapse filters into a toggle */
+@media (max-width: 640px), (max-height: 520px) and (orientation: landscape) {
+  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 76px); }
+  .bar { padding: 10px 0; }
+  .bar-inner { gap: 10px 8px; }
+  .chips { flex: 1 1 0; min-width: 0; }
+  .filter-toggle { display: inline-flex; }
+  .controls { flex: 1 1 100%; }
+  .bar:not(.open) .controls { display: none; }
+  .group { margin-top: 26px; }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+  header.hero { padding-top: 22px; }
+  .period { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; margin-top: 22px; }
+  .period button { padding: 10px 6px; }
+  .controls input, .controls select { flex: 1 1 100%; }
+}
+
+/* Smallest phones */
+@media (max-width: 380px) {
+  h1 { font-size: 2.05rem; }
+  .brand { margin-bottom: 18px; }
+  .period button { font-size: .78rem; }
+  .chip { padding: 5px 10px; }
+  .ev-top { padding: 10px 14px; }
+  .ev-body { padding: 12px 14px 14px; }
+  .ev h3 { font-size: 1.08rem; }
+  .btn { padding: 8px 12px; font-size: .84rem; }
+  .day { min-width: 52px; padding-inline: 9px; }
+}
+
+/* Hide the button label on small phones */
+@media (max-width: 480px) {
+  .to-top-label { display: none; }
+  .to-top { padding: 13px; }
+}
+
+/* Short landscape screens: compact hero */
+@media (max-height: 520px) and (orientation: landscape) {
+  header.hero { padding-top: 14px; padding-bottom: 18px; }
+  .brand { margin-bottom: 12px; }
+  h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); max-width: none; }
+  h1 .count { font-size: .5em; margin-top: .35em; }
+  .period { margin-top: 14px; }
+  .period button { padding: 8px 16px; }
+  .source { margin-top: 10px; }
+  .strip { padding-top: 12px; }
+}
+
+/* Touch screens: bigger tap targets, no zoom on inputs */
+@media (pointer: coarse) {
+  .chip { min-height: 38px; }
+  .btn { min-height: 42px; display: inline-flex; align-items: center; }
+  .filter-toggle, .brand button { min-height: 38px; }
+  .controls input, .controls select { font-size: 16px; min-height: 44px; }
+  .org-link { padding: 4px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+ <div class="wrap">
+  <p class="brand"><span class="logo">RaveRadar</span><button id="themeBtn" type="button">Switch theme</button></p>
+  <h1 id="headline">Upcoming raves<span class="count" id="count"></span></h1>
+  <div class="period" role="group" aria-label="Group events">
+    <button type="button" data-p="day">By day</button>
+    <button type="button" data-p="week">By week</button>
+    <button type="button" data-p="month">By month</button>
+  </div>
+  <p class="source" id="source" data-state="sample" aria-live="polite" hidden><span><span class="dot"></span><span id="sourceText">Showing sample events</span></span></p>
+ </div>
+</header>
+
+<div class="bar">
+  <div class="wrap bar-inner">
+    <div class="chips" id="chips" role="group" aria-label="Filter by genre"></div>
+    <button class="filter-toggle" id="filterToggle" type="button" aria-expanded="false" aria-controls="controls">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 4h12M4.5 8h7M7 12h2"/></svg>
+      Filters<span id="filterCount"></span>
+    </button>
+    <div class="controls" id="controls">
+      <input id="q" type="search" placeholder="Search artist, venue, event" aria-label="Search events">
+      <select id="tix" aria-label="Filter by ticket status">
+        <option value="">All tickets</option>
+        <option value="available">Tickets available</option>
+        <option value="onsale">On sale</option>
+        <option value="low">Selling fast</option>
+        <option value="soon">On sale soon</option>
+        <option value="soldout">Sold out</option>
+      </select>
+      <select id="org" aria-label="Filter by organizer">
+        <option value="">All organizers</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="strip" id="strip" aria-label="Jump to a date"></nav>
+  <div id="list"></div>
+</main>
+
+<div class="to-top-wrap">
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>
+    <span class="to-top-label">Back to top</span>
+  </button>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <p class="footer-logo">RaveRadar</p>
+      <p>Every rave worth knowing about, by day, week and month. Lineups, venues, genres and ticket updates in one place.</p>
+    </div>
+    <nav class="footer-col" aria-label="Browse events">
+      <h2>Browse</h2>
+      <ul>
+        <li><button type="button" data-go-period="day">Events by day</button></li>
+        <li><button type="button" data-go-period="week">Events by week</button></li>
+        <li><button type="button" data-go-period="month">Events by month</button></li>
+        <li><button type="button" data-go-tix="available">Tickets available now</button></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Browse by genre">
+      <h2>Genres</h2>
+      <ul id="footerGenres"></ul>
+    </nav>
+    <div class="footer-col">
+      <h2>For organizers</h2>
+      <p>Throwing a rave? Get it listed on RaveRadar.</p>
+      <a class="btn footer-cta" href="mailto:angeloguerra55@gmail.com?subject=List%20my%20event%20on%20RaveRadar">List your event</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>Ticket prices and availability change fast. Always confirm on the official ticket page before you buy.</p>
+    <p>Look after each other. Drink water, take breaks, and know where the medics are.</p>
+    <p>&copy; <span id="year"></span> RaveRadar</p>
+  </div>
+</footer>
+
+<script>
+/* ===========================================================
+   EVENT DATA — replace these sample events with real ones.
+   dayOffset = days from today (0 = today). For real data,
+   use a fixed "date": "2026-11-21" instead of dayOffset.
+   ticket.status: onsale | low | soldout | soon | door
+   =========================================================== */
+const GENRES = {
+  techno:  { name: "Techno",       c: "--g-techno" },
+  house:   { name: "House",        c: "--g-house" },
+  dnb:     { name: "Drum & Bass",  c: "--g-dnb" },
+  trance:  { name: "Trance",       c: "--g-trance" },
+  dubstep: { name: "Dubstep",      c: "--g-dubstep" },
+  hard:    { name: "Hardstyle",    c: "--g-hard" },
+  psy:     { name: "Psytrance",    c: "--g-psy" },
+  garage:  { name: "UK Garage",    c: "--g-garage" }
+};
+
+const SAMPLE_EVENTS = [
+  { id: 1, title: "Concrete Cathedral", dayOffset: 0, start: "22:00", end: "06:00", genres: ["techno", "trance"], style: ["Warehouse", "All night long"],
+    lineup: ["Vera Kolt", "Monolith Unit", "Sable"], venue: "Warehouse 9", area: "Port District",
+    ticket: { status: "low", price: "₱1,800", updated: 40 },
+    links: { tickets: "https://example.com/tickets/concrete-cathedral", website: "https://example.com", instagram: "https://instagram.com/", facebook: "https://facebook.com/" } },
+  { id: 2, title: "Sunset Groove Session", dayOffset: 0, start: "16:00", end: "23:00", genre: "house", style: ["Rooftop", "Day rave"],
+    lineup: ["Lua Marin", "Kofi Ade", "Deepwell b2b Rana"], venue: "Skydeck 31", area: "Central",
+    ticket: { status: "onsale", price: "₱1,200", updated: 180 },
+    links: { tickets: "https://example.com/tickets/sunset-groove", instagram: "https://instagram.com/" } },
+  { id: 3, title: "Amen Break Club", dayOffset: 1, start: "23:00", end: "05:00", genres: ["dnb", "dubstep"], style: ["Underground", "Basement"],
+    lineup: ["Kinetic", "Rollah", "MC Fuse"], venue: "The Vault", area: "Old Town",
+    ticket: { status: "onsale", price: "₱900", updated: 300 },
+    links: { tickets: "https://example.com/tickets/amen-break", website: "https://example.com", instagram: "https://instagram.com/", tiktok: "https://tiktok.com/" } },
+  { id: 4, title: "Euphoria Rising", dayOffset: 2, start: "21:00", end: "04:00", genre: "trance", style: ["Club", "Laser show"],
+    lineup: ["Arielle Sky", "Nova Theorem", "Halcyon"], venue: "Prism Hall", area: "North Bay",
+    ticket: { status: "soldout", price: "₱2,500", updated: 25 },
+    links: { tickets: "https://example.com/tickets/euphoria", facebook: "https://facebook.com/", instagram: "https://instagram.com/" } },
+  { id: 5, title: "Low End Theory", dayOffset: 3, start: "22:00", end: "03:00", genre: "dubstep", style: ["Soundsystem", "Underground"],
+    lineup: ["Grimewave", "Subdepth", "Tess Ojo"], venue: "Bunker 4", area: "Industrial Row",
+    ticket: { status: "door", price: "₱600 at the door", updated: 1440 },
+    links: { website: "https://example.com", instagram: "https://instagram.com/", soundcloud: "https://soundcloud.com/" } },
+  { id: 6, title: "Hard Dance Nation", dayOffset: 5, start: "20:00", end: "05:00", genres: ["hard", "trance"], style: ["Arena", "Festival style"],
+    lineup: ["Ravek", "Blitz Theory", "Kaira"], venue: "Riverside Arena", area: "Riverside",
+    ticket: { status: "low", price: "₱3,200", updated: 90 },
+    links: { tickets: "https://example.com/tickets/hard-dance", website: "https://example.com", facebook: "https://facebook.com/", instagram: "https://instagram.com/" } },
+  { id: 7, title: "Forest Frequencies", dayOffset: 6, start: "12:00", end: "12:00 +1", genre: "psy", style: ["Open air", "24 hours", "Camping"],
+    lineup: ["Mantra Loop", "Sylvan", "Orbital Seed", "Ayla Dune"], venue: "Pinegrove Campsite", area: "Highlands",
+    ticket: { status: "onsale", price: "₱4,500", updated: 600 },
+    links: { tickets: "https://example.com/tickets/forest-freq", website: "https://example.com", instagram: "https://instagram.com/" } },
+  { id: 8, title: "2-Step Social", dayOffset: 9, start: "21:00", end: "02:00", genre: "garage", style: ["Club", "Throwback"],
+    lineup: ["Shuffle Theory", "Jae Bloom"], venue: "Room Two", area: "Central",
+    ticket: { status: "onsale", price: "₱800", updated: 2000 },
+    links: { tickets: "https://example.com/tickets/2step", instagram: "https://instagram.com/", tiktok: "https://tiktok.com/" } },
+  { id: 9, title: "Pulse on the Water", dayOffset: 12, start: "18:00", end: "23:30", genres: ["house", "garage"], style: ["Boat party", "Limited capacity"],
+    lineup: ["Marisol", "Coastline Collective"], venue: "Pier 3 Departures", area: "Harbour",
+    ticket: { status: "soon", price: "From ₱2,000", updated: 240, saleIn: [3, "12:00"] },
+    links: { website: "https://example.com", instagram: "https://instagram.com/", facebook: "https://facebook.com/" } },
+  { id: 10, title: "Machine Room", dayOffset: 15, start: "23:00", end: "07:00", genre: "techno", style: ["Afterhours", "No phones on the floor"],
+    lineup: ["Ilse Brandt", "Cold Signal", "Rhea"], venue: "Substation", area: "Industrial Row",
+    ticket: { status: "onsale", price: "₱1,500", updated: 120 },
+    links: { tickets: "https://example.com/tickets/machine-room", instagram: "https://instagram.com/", soundcloud: "https://soundcloud.com/" } },
+  { id: 11, title: "Jungle Massive", dayOffset: 19, start: "22:00", end: "04:00", genre: "dnb", style: ["Warehouse", "Jungle special"],
+    lineup: ["Ragga Twinz", "Kinetic", "Duppy"], venue: "Warehouse 9", area: "Port District",
+    ticket: { status: "soon", price: "From ₱1,100", updated: 60, saleIn: [1, "12:00"] },
+    links: { website: "https://example.com", facebook: "https://facebook.com/", instagram: "https://instagram.com/" } },
+  { id: 12, title: "Gatecrasher Revival", dayOffset: 24, start: "21:00", end: "05:00", genre: "trance", style: ["Club", "Classics"],
+    lineup: ["Arielle Sky", "Paradox Twin"], venue: "Prism Hall", area: "North Bay",
+    ticket: { status: "onsale", price: "₱2,200", updated: 3000 },
+    links: { tickets: "https://example.com/tickets/revival", website: "https://example.com", instagram: "https://instagram.com/" } },
+  { id: 13, title: "Wobble Fest", dayOffset: 27, start: "15:00", end: "02:00", genre: "dubstep", style: ["Open air", "Festival"],
+    lineup: ["Subdepth", "Grimewave", "Nyx Volt", "Bassquake"], venue: "Eastfield Grounds", area: "East Fields",
+    ticket: { status: "low", price: "₱3,800", updated: 200 },
+    links: { tickets: "https://example.com/tickets/wobble", website: "https://example.com", instagram: "https://instagram.com/", tiktok: "https://tiktok.com/" } },
+  { id: 14, title: "Deep Space Disco", dayOffset: 34, start: "22:00", end: "04:00", genre: "house", style: ["Club", "Disco edits"],
+    lineup: ["Lua Marin", "Velvet Arcade"], venue: "Room Two", area: "Central",
+    ticket: { status: "onsale", price: "₱1,000", updated: 500 },
+    links: { tickets: "https://example.com/tickets/deep-space", instagram: "https://instagram.com/" } },
+  { id: 15, title: "Year End Rave", dayOffset: 41, start: "21:00", end: "08:00", genres: ["techno", "house", "trance"], style: ["Warehouse", "Special event"],
+    lineup: ["Vera Kolt", "Ilse Brandt", "Cold Signal", "Sable"], venue: "Warehouse 9", area: "Port District",
+    ticket: { status: "low", price: "₱2,800", updated: 75 },
+    links: { tickets: "https://example.com/tickets/year-end", website: "https://example.com", instagram: "https://instagram.com/", facebook: "https://facebook.com/" } },
+  { id: 16, title: "Liquid Sundays", dayOffset: 48, start: "15:00", end: "22:00", genre: "dnb", style: ["Day rave", "Poolside"],
+    lineup: ["Rollah", "Mira Flow"], venue: "Lagoon Club", area: "Harbour",
+    ticket: { status: "soon", price: "From ₱1,300", updated: 300, saleIn: [7, "10:00"] },
+    links: { website: "https://example.com", instagram: "https://instagram.com/" } },
+  { id: 17, title: "Reverze Night", dayOffset: 56, start: "20:00", end: "04:00", genre: "hard", style: ["Arena", "Pyro show"],
+    lineup: ["Ravek", "Kaira", "Stormfront"], venue: "Riverside Arena", area: "Riverside",
+    ticket: { status: "onsale", price: "₱3,500", updated: 900 },
+    links: { tickets: "https://example.com/tickets/reverze", facebook: "https://facebook.com/", tiktok: "https://tiktok.com/" } },
+  { id: 18, title: "Moonrise Gathering", dayOffset: 63, start: "14:00", end: "10:00 +1", genre: "psy", style: ["Open air", "Beach"],
+    lineup: ["Mantra Loop", "Ayla Dune", "Fractal Kin"], venue: "Coral Point", area: "South Coast",
+    ticket: { status: "onsale", price: "₱3,900", updated: 1600 },
+    links: { tickets: "https://example.com/tickets/moonrise", website: "https://example.com", instagram: "https://instagram.com/" } },
+  { id: 19, title: "Garage Classics", dayOffset: 76, start: "21:00", end: "03:00", genre: "garage", style: ["Club", "Throwback"],
+    lineup: ["Shuffle Theory", "Jae Bloom", "MC Rhythm"], venue: "The Vault", area: "Old Town",
+    ticket: { status: "soon", price: "TBA", updated: 2500, onSaleNote: "Tickets announced soon" },
+    links: { instagram: "https://instagram.com/", facebook: "https://facebook.com/" } }
+];
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const today = new Date(); today.setHours(0,0,0,0);
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const key = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const SAMPLE_ORGANIZERS = {
+  1: "Concrete Collective", 2: "Golden Hour Club", 3: "Breakbeat Society", 4: "Euphoria Events", 5: "Sub Culture Sound",
+  6: "Hard Dance Nation", 7: "Pinegrove Tribe", 8: "Shuffle Theory", 9: "Golden Hour Club", 10: "Concrete Collective",
+  11: "Breakbeat Society", 12: "Euphoria Events", 13: "Sub Culture Sound", 14: "Velvet Arcade", 15: "Concrete Collective",
+  16: "Breakbeat Society", 17: "Hard Dance Nation", 18: "Pinegrove Tribe", 19: "Shuffle Theory"
+};
+SAMPLE_EVENTS.forEach(e => { if (!e.organizer) e.organizer = SAMPLE_ORGANIZERS[e.id] || ""; });
+
+let EVENTS = [];
+function prepare(list) {
+  list.forEach(e => {
+    if (!e._date) e._date = e.date instanceof Date ? e.date : e.date ? new Date(e.date + "T00:00:00") : addDays(today, e.dayOffset || 0);
+    if (!e.genres || !e.genres.length) e.genres = [e.genre || "techno"];
+    if (e.ticket.saleIn && !e.ticket.saleAt) {
+      const [days, time] = e.ticket.saleIn, [h, m] = time.split(":");
+      const at = addDays(today, days); at.setHours(+h, +m);
+      e.ticket.saleAt = at;
+    }
+  });
+  return list;
+}
+EVENTS = prepare(SAMPLE_EVENTS);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const ago = m => m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m/60)}h ago` : `${Math.round(m/1440)}d ago`;
+const STATUS = { onsale: "On sale", low: "Selling fast", soldout: "Sold out", soon: "On sale soon", door: "Tickets at the door" };
+
+/* Ticket sale date: before it, a ticket shows "On sale [date]";
+   once it passes, "On sale soon" flips to "On sale" by itself. */
+const saleUpcoming = t => !!(t.saleAt && Date.now() < t.saleAt);
+function effStatus(t) {
+  if (!t.saleAt || t.status === "soldout") return t.status;
+  if (saleUpcoming(t)) return "soon";
+  return t.status === "soon" ? "onsale" : t.status;
+}
+function fmtSale(d, dateOnly) {
+  const o = { weekday: "short", month: "short", day: "numeric" };
+  if (d.getFullYear() !== today.getFullYear()) o.year = "numeric";
+  if (!dateOnly) { o.hour = "numeric"; o.minute = "2-digit"; }
+  return d.toLocaleString(undefined, o);
+}
+function statusLabel(t) {
+  const s = effStatus(t);
+  if (s === "soon" && saleUpcoming(t)) return `On sale ${fmtSale(t.saleAt, t.saleDateOnly)}`;
+  if (t.onSaleNote && s === t.status) return t.onSaleNote;
+  return STATUS[s];
+}
+const LINK_NAMES = { website: "Website", instagram: "Instagram", facebook: "Facebook", tiktok: "TikTok", soundcloud: "SoundCloud", x: "X" };
+const VIEWS = { day: "by day", week: "by week", month: "by month" };
+const fmt = (d, o) => d.toLocaleDateString(undefined, o);
+const shortDate = d => fmt(d, { weekday: "short", day: "numeric", month: "short" });
+const weekStart = d => addDays(d, -((d.getDay() + 6) % 7)); // weeks start Monday
+const monthStart = d => new Date(d.getFullYear(), d.getMonth(), 1);
+const weeksFromNow = s => Math.round((s - weekStart(today)) / 604800000);
+const monthsFromNow = s => (s.getFullYear() - today.getFullYear()) * 12 + s.getMonth() - today.getMonth();
+const GROUPERS = {
+  day: {
+    start: d => d,
+    title: s => { const n = Math.round((s - today) / 86400000); return n === 0 ? "Tonight" : n === 1 ? "Tomorrow" : fmt(s, { weekday: "long" }); },
+    sub: s => fmt(s, { month: "long", day: "numeric" }),
+    chipTop: s => s.getTime() === today.getTime() ? "Today" : fmt(s, { weekday: "short" }),
+    chipMain: s => String(s.getDate())
+  },
+  week: {
+    start: weekStart,
+    title: s => { const n = weeksFromNow(s); return n === 0 ? "This week" : n === 1 ? "Next week" : `Week of ${fmt(s, { month: "long", day: "numeric" })}`; },
+    sub: s => `${fmt(s, { month: "short", day: "numeric" })} – ${fmt(addDays(s, 6), { month: "short", day: "numeric" })}`,
+    chipTop: s => { const n = weeksFromNow(s); return n === 0 ? "This week" : n === 1 ? "Next week" : "Week of"; },
+    chipMain: s => fmt(s, { month: "short", day: "numeric" })
+  },
+  month: {
+    start: monthStart,
+    title: s => fmt(s, s.getFullYear() === today.getFullYear() ? { month: "long" } : { month: "long", year: "numeric" }),
+    sub: s => { const n = monthsFromNow(s); return n === 0 ? "This month" : n === 1 ? "Next month" : `In ${n} months`; },
+    chipTop: s => String(s.getFullYear()),
+    chipMain: s => fmt(s, { month: "short" })
+  }
+};
+
+/* ---------- state ---------- */
+const state = { period: "week", genres: new Set(), q: "", tix: "", org: "" };
+const fromHash = () => { const h = location.hash.slice(1); if (VIEWS[h]) state.period = h; };
+fromHash();
+
+/* ---------- genre chips ---------- */
+const chips = $("#chips");
+const allChip = document.createElement("button");
+allChip.className = "chip"; allChip.type = "button"; allChip.textContent = "All genres";
+allChip.style.setProperty("--c", "var(--ink)");
+allChip.onclick = () => { state.genres.clear(); render(); };
+function buildChips() {
+  chips.innerHTML = "";
+  chips.append(allChip);
+  Object.entries(GENRES).forEach(([k, g]) => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = g.name; b.dataset.g = k;
+    b.style.setProperty("--c", `var(${g.c})`);
+    b.onclick = () => { state.genres.has(k) ? state.genres.delete(k) : state.genres.add(k); render(); };
+    chips.append(b);
+  });
+  buildOrgs();
+  if (document.getElementById("footerGenres")) buildFooterGenres();
+}
+function buildOrgs() {
+  const sel = $("#org");
+  const orgs = [...new Set(EVENTS.map(e => e.organizer).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+  if (state.org && !orgs.includes(state.org)) state.org = "";
+  sel.innerHTML = `<option value="">All organizers</option>` + orgs.map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join("");
+  sel.value = state.org;
+  sel.hidden = orgs.length === 0;
+}
+$("#org").addEventListener("change", e => { state.org = e.target.value; render(); });
+$("#list").addEventListener("click", e => {
+  const b = e.target.closest(".org-link");
+  if (!b) return;
+  state.org = b.dataset.org;
+  $("#org").value = state.org;
+  render();
+  $("#org").focus({ preventScroll: true });
+  window.scrollTo({ top: 0 });
+});
+buildChips();
+
+/* ---------- controls ---------- */
+document.querySelectorAll(".period button").forEach(b => b.onclick = () => {
+  state.period = b.dataset.p;
+  history.replaceState(null, "", "#" + b.dataset.p);
+  render();
+});
+window.addEventListener("hashchange", () => { fromHash(); render(); });
+$("#q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); render(); });
+$("#tix").addEventListener("change", e => { state.tix = e.target.value; render(); });
+$("#filterToggle").addEventListener("click", () => {
+  const bar = document.querySelector(".bar");
+  const open = bar.classList.toggle("open");
+  $("#filterToggle").setAttribute("aria-expanded", open);
+  if (open) $("#q").focus({ preventScroll: true });
+});
+
+/* ---------- filtering ---------- */
+function matches(e) {
+  if (state.genres.size && !e.genres.some(g => state.genres.has(g))) return false;
+  if (state.org && e.organizer !== state.org) return false;
+  const ts = effStatus(e.ticket);
+  if (state.tix === "available" && !["onsale", "low", "door"].includes(ts)) return false;
+  if (state.tix && state.tix !== "available" && ts !== state.tix) return false;
+  if (state.q) {
+    const hay = [e.title, e.organizer || "", e.venue, e.area, ...e.genres.map(g => GENRES[g].name), ...e.style, ...e.lineup].join(" ").toLowerCase();
+    if (!hay.includes(state.q)) return false;
+  }
+  return true;
+}
+
+/* ---------- rendering ---------- */
+function card(e) {
+  const gs = e.genres.map(k => GENRES[k]);
+  const n = gs.length;
+  const band = n === 1 ? `var(${gs[0].c})`
+    : `linear-gradient(90deg, ${gs.map((g, i) => `var(${g.c}) ${(i * 100 / n).toFixed(2)}% ${((i + 1) * 100 / n).toFixed(2)}%`).join(", ")})`;
+  const t = e.ticket;
+  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.venue + " " + (e.area || ""))}`;
+  const ticketBtn = e.links.tickets
+    ? `<a class="btn primary${t.status === "soldout" ? " muted" : ""}" href="${esc(e.links.tickets)}" target="_blank" rel="noopener noreferrer">${t.status === "soldout" ? "Check resale" : "Get tickets"}</a>`
+    : "";
+  const others = Object.entries(e.links).filter(([k]) => k !== "tickets")
+    .map(([k, url]) => `<a class="btn" href="${esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(LINK_NAMES[k] || k)} for ${esc(e.title)}">${esc(LINK_NAMES[k] || k)}</a>`).join("");
+  const lineup = e.lineup.length > 1
+    ? `${e.lineup.slice(0, -1).map(esc).join(", ")} <span>and</span> ${esc(e.lineup.at(-1))}`
+    : esc(e.lineup[0] || "");
+  return `
+  <article class="ev" style="--c: var(${gs[0].c}); --band: ${band}">
+    <div class="ev-top"><span class="genre">${gs.map(g => esc(g.name)).join(" / ")}</span><span class="time">${state.period === "day" ? "" : esc(shortDate(e._date)) + ", "}${esc(e.start)} – ${esc(e.end)}</span></div>
+    <div class="ev-body">
+      <h3>${esc(e.title)}</h3>${e.organizer ? `
+      <p class="org">by <button type="button" class="org-link" data-org="${esc(e.organizer)}" aria-label="Show all events by ${esc(e.organizer)}">${esc(e.organizer)}</button></p>` : ""}
+      <div class="tags">${e.style.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div>
+      <p class="lineup">${lineup}</p>
+      <p class="venue"><a href="${maps}" target="_blank" rel="noopener noreferrer">${esc(e.venue)}</a>${e.area ? ", " + esc(e.area) : ""}</p>
+      <div class="tix">
+        <span class="status s-${effStatus(t)}">${esc(statusLabel(t))}</span>
+        <span class="price">${esc(t.price)}</span>
+        ${t.updated == null ? "" : `<span class="updated">Updated ${ago(t.updated)}</span>`}
+      </div>
+      <div class="links">${ticketBtn}${others}</div>
+    </div>
+  </article>`;
+}
+
+function render() {
+  // period buttons, chips
+  document.querySelectorAll(".period button").forEach(b => b.setAttribute("aria-pressed", b.dataset.p === state.period));
+  allChip.setAttribute("aria-pressed", state.genres.size === 0);
+  chips.querySelectorAll("[data-g]").forEach(b => b.setAttribute("aria-pressed", state.genres.has(b.dataset.g)));
+
+  const upcoming = EVENTS.filter(e => e._date >= today && matches(e))
+    .sort((a, b) => a._date - b._date || a.start.localeCompare(b.start));
+  const n = upcoming.length;
+  $("#count").textContent = `${n} event${n === 1 ? "" : "s"}, grouped ${VIEWS[state.period]}`;
+  const active = (state.q ? 1 : 0) + (state.tix ? 1 : 0) + (state.org ? 1 : 0);
+  $("#filterCount").textContent = active ? ` (${active})` : "";
+
+  // group by day, week or month
+  const G = GROUPERS[state.period];
+  const groups = new Map();
+  upcoming.forEach(e => {
+    const s = G.start(e._date), k = key(s);
+    if (!groups.has(k)) groups.set(k, { start: s, evs: [] });
+    groups.get(k).evs.push(e);
+  });
+
+  // jump strip
+  const strip = $("#strip");
+  strip.innerHTML = "";
+  strip.hidden = groups.size < 2;
+  groups.forEach(({ start, evs }, k) => {
+    const b = document.createElement("button");
+    b.className = "day"; b.type = "button";
+    b.setAttribute("aria-label", `${G.title(start)}, ${evs.length} event${evs.length === 1 ? "" : "s"}`);
+    b.innerHTML = `<span class="dw">${esc(G.chipTop(start))}</span>
+      <span class="dn">${esc(G.chipMain(start))}</span>
+      <span class="dots">${evs.slice(0, 5).map(e => `<i style="--c: var(${GENRES[e.genres[0]].c})"></i>`).join("")}</span>`;
+    b.onclick = () => document.getElementById("g-" + k)?.scrollIntoView();
+    strip.append(b);
+  });
+
+  // re-render when the next ticket sale opens, so the status flips live
+  clearTimeout(render.saleTimer);
+  const nextSale = Math.min(...EVENTS.map(e => e.ticket.saleAt && e.ticket.saleAt > Date.now() ? +e.ticket.saleAt : Infinity));
+  if (nextSale - Date.now() < 86400000) render.saleTimer = setTimeout(render, nextSale - Date.now() + 1000);
+
+  // list
+  const list = $("#list");
+  if (!upcoming.length) {
+    list.innerHTML = `<div class="empty"><strong>No raves match these filters</strong>
+      Clear your genre, ticket or search filters to see more.<br>
+      <button class="btn" type="button" id="clear">Clear filters</button></div>`;
+    $("#clear").onclick = () => {
+      state.genres.clear(); state.q = ""; state.tix = ""; state.org = "";
+      $("#q").value = ""; $("#tix").value = ""; $("#org").value = ""; render();
+    };
+    return;
+  }
+  list.innerHTML = [...groups.entries()].map(([k, { start, evs }]) => `<section class="group" id="g-${k}">
+      <h2>${esc(G.title(start))} <small>${esc(G.sub(start))}, ${evs.length} event${evs.length === 1 ? "" : "s"}</small></h2>
+      <div class="grid">${evs.map(card).join("")}</div>
+    </section>`).join("");
+}
+
+
+/* ===========================================================
+   GOOGLE SHEET DATABASE
+   The page reads this sheet through the viewer's Google Drive
+   connector. Edit rows in the sheet; the page refreshes every
+   few minutes. Sample events show when the sheet can't be read.
+   =========================================================== */
+const SHEET_ID = "193BWyJ7jiyZaiBPln_fNrtos6TkHPCr4rzqSlfAcmWE";
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/193BWyJ7jiyZaiBPln_fNrtos6TkHPCr4rzqSlfAcmWE/edit";
+const DRIVE = "Google Drive";
+const READ_INPUT = { fileId: SHEET_ID, exportMimeType: "text/csv" };
+
+function parseCSV(text) {
+  const rows = []; let row = [], cell = "", q = false;
+  text = text.replace(/^\uFEFF/, "");
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; }
+      else cell += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(cell); cell = ""; }
+    else if (c === "\n" || c === "\r") {
+      if (c === "\r" && text[i + 1] === "\n") i++;
+      row.push(cell); rows.push(row); row = []; cell = "";
+    } else cell += c;
+  }
+  if (cell !== "" || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(v => v.trim() !== ""));
+}
+
+const looksLikeSheet = t => {
+  const first = t.replace(/^\uFEFF/, "").split(/\r?\n/)[0].toLowerCase();
+  return first.includes("event name") && first.includes("date");
+};
+function findCSV(x, depth = 0) {
+  if (x == null || depth > 6) return null;
+  if (typeof x === "string") {
+    if (looksLikeSheet(x)) return x;
+    const compact = x.replace(/\s+/g, "");
+    if (compact.length > 40 && /^[A-Za-z0-9+/=_-]+$/.test(compact)) {
+      try {
+        const bin = atob(compact.replace(/-/g, "+").replace(/_/g, "/"));
+        const txt = new TextDecoder().decode(Uint8Array.from(bin, ch => ch.charCodeAt(0)));
+        if (looksLikeSheet(txt)) return txt;
+      } catch (e) {}
+    }
+    if (/^\s*[\[{]/.test(x)) { try { return findCSV(JSON.parse(x), depth + 1); } catch (e) {} }
+    return null;
+  }
+  if (typeof x === "object") {
+    for (const v of Object.values(x)) { const r = findCSV(v, depth + 1); if (r) return r; }
+  }
+  return null;
+}
+
+function parseDate(s) {
+  let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+  m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (m) return new Date(+m[3], +m[1] - 1, +m[2]);
+  const t = Date.parse(s);
+  if (isNaN(t)) return null;
+  const d = new Date(t); d.setHours(0, 0, 0, 0); return d;
+}
+function parseDateTime(s) {
+  let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})[ T](\d{1,2}):(\d{2})/);
+  if (m) return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]);
+  m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})[ T](\d{1,2}):(\d{2})/);
+  if (m) return new Date(+m[3], +m[1] - 1, +m[2], +m[4], +m[5]);
+  const t = Date.parse(s);
+  return isNaN(t) ? null : new Date(t);
+}
+const padTime = s => s.replace(/^(\d):/, "0$1:");
+const splitList = s => s.split(",").map(x => x.trim()).filter(Boolean);
+const STATUS_BY_NAME = { "on sale": "onsale", "selling fast": "low", "few left": "low", "sold out": "soldout", "on sale soon": "soon", "at the door": "door", "tickets at the door": "door" };
+const LINK_COLUMNS = [["ticket link", "tickets"], ["website", "website"], ["instagram", "instagram"], ["facebook", "facebook"], ["tiktok", "tiktok"], ["soundcloud", "soundcloud"], ["x", "x"]];
+
+function rowsToEvents(rows) {
+  if (!rows.length) return [];
+  const head = rows[0].map(h => h.trim().toLowerCase());
+  const get = (r, name) => { const i = head.indexOf(name); return i < 0 ? "" : (r[i] || "").trim(); };
+  const genreByName = {};
+  Object.entries(GENRES).forEach(([k, g]) => { genreByName[g.name.toLowerCase()] = k; });
+  const list = [];
+  rows.slice(1).forEach((r, i) => {
+    const title = get(r, "event name");
+    const date = parseDate(get(r, "date"));
+    if (!title || !date) return;
+    if (/^(no|n|false|hide|hidden)$/i.test(get(r, "show on site"))) return;
+    const gNames = splitList(get(r, "genre").replace(/[\/|;]/g, ","));
+    if (!gNames.length) gNames.push("Other");
+    const genres = [...new Set(gNames.map(gName => {
+      let gk = genreByName[gName.toLowerCase()];
+      if (!gk) {
+        gk = "x-" + gName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        GENRES[gk] = { name: gName, c: "--uv" };
+        genreByName[gName.toLowerCase()] = gk;
+      }
+      return gk;
+    }))];
+    const statusText = get(r, "ticket status");
+    const status = STATUS_BY_NAME[statusText.toLowerCase()] || "door";
+    const note = get(r, "ticket note") || (STATUS_BY_NAME[statusText.toLowerCase()] ? "" : statusText);
+    const links = {};
+    LINK_COLUMNS.forEach(([h, k]) => { const v = get(r, h); if (/^https?:\/\//i.test(v)) links[k] = v; });
+    const upd = parseDateTime(get(r, "ticket info updated"));
+    const saleRaw = get(r, "tickets on sale");
+    const saleDateOnly = !!saleRaw && !/\d{1,2}:\d{2}/.test(saleRaw);
+    const saleAt = !saleRaw ? null : saleDateOnly ? parseDate(saleRaw) : parseDateTime(saleRaw);
+    list.push({
+      id: get(r, "event id") || "row-" + (i + 2), title, organizer: get(r, "organizer") || get(r, "organiser"), _date: date,
+      start: padTime(get(r, "start")) || "TBA", end: padTime(get(r, "end")) || "late", genres,
+      style: splitList(get(r, "style")), lineup: splitList(get(r, "lineup")),
+      venue: get(r, "venue") || "Venue to be announced", area: get(r, "area"),
+      ticket: { status, price: get(r, "price") || "Price TBA", onSaleNote: note, saleAt, saleDateOnly,
+        updated: upd ? Math.max(0, Math.round((Date.now() - upd) / 60000)) : null },
+      links
+    });
+  });
+  return list;
+}
+
+function setSource(stateName, text, extra) {
+  const el = $("#source");
+  el.dataset.state = stateName;
+  $("#sourceText").textContent = text;
+  el.querySelectorAll(".extra").forEach(n => n.remove());
+  if (extra) { extra.classList.add("extra"); el.append(extra); }
+  // The data source stays behind the scenes; only show this line when the viewer must allow access.
+  el.hidden = !(extra && extra.tagName === "BUTTON");
+}
+function sheetLink() {
+  const a = document.createElement("a");
+  a.href = SHEET_URL; a.target = "_blank"; a.rel = "noopener noreferrer";
+  a.textContent = "Edit events in Google Sheets";
+  return a;
+}
+function useSample(message) {
+  EVENTS = prepare(SAMPLE_EVENTS);
+  render();
+  setSource("error", message);
+}
+function applyResult(result) {
+  const csv = findCSV(result.payload) || findCSV(result.structuredContent) || findCSV(result.content);
+  if (!csv) {
+    setSource("error", "The sheet opened, but no events table was found. Check that row 1 still has the column headers, including Event name and Date.", sheetLink());
+    return;
+  }
+  EVENTS = rowsToEvents(parseCSV(csv));
+  buildChips();
+  render();
+  const when = result.cache && result.cache.storedAt ? new Date(result.cache.storedAt) : new Date();
+  setSource("live", `Live from Google Sheets, checked ${when.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}`, sheetLink());
+}
+function handleError(err, mcp) {
+  const code = err && err.code;
+  if (code === "needs_reauth") return useSample("Showing sample events. Reconnect Google Drive in claude.ai Settings, then Connectors, to load the live list.");
+  if (code === "server_not_connected" || code === "selection_required") return useSample("Showing sample events. Add Google Drive in claude.ai Settings, then Connectors, to load the live list.");
+  if (code === "blocked_by_policy") return useSample("Showing sample events. Your organization doesn’t allow Google Drive here.");
+  if (code === "not_in_manifest" || code === "not_granted" || code === "capability_disabled") return useSample("Showing sample events. Google Drive access is turned off for this page.");
+  if (code === "approval_required") {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = "Allow Google Drive";
+    b.onclick = () => mcp.callTool(DRIVE, "download_file_content", READ_INPUT).then(applyResult).catch(e => handleError(e, mcp));
+    EVENTS = prepare(SAMPLE_EVENTS); render();
+    return setSource("error", "Showing sample events. This page needs your OK to read the events sheet.", b);
+  }
+  if (code === "tool_error") return setSource("error", "Google Drive couldn’t open the events sheet. Check that it still exists and that you have access.", sheetLink());
+  setSource("error", "Couldn’t reach Google Drive just now. The list will refresh automatically.");
+}
+
+async function connectSheet() {
+  const mcp = window.claude && window.claude.use ? await window.claude.use("mcp").catch(() => null) : null;
+  if (!mcp) {
+    setSource("sample", "Showing sample events. Open this page in Claude with Google Drive connected to see the live list.");
+    return;
+  }
+  setSource("sample", "Loading events from Google Sheets…");
+  mcp.watchTool(DRIVE, "download_file_content", READ_INPUT, ev => {
+    if (ev.type === "data") applyResult(ev.result);
+    else handleError(ev.error, mcp);
+  }, { cache: { staleTime: 60000, gcTime: 600000 }, refetchInterval: 300000 });
+}
+
+/* ---------- theme toggle ---------- */
+$("#themeBtn").onclick = () => {
+  const r = document.documentElement;
+  const isDark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  r.dataset.theme = isDark ? "light" : "dark";
+  try { localStorage.setItem("theme", r.dataset.theme); } catch (e) {}
+};
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+
+render();
+connectSheet();
+
+
+/* ---------- footer ---------- */
+function buildFooterGenres() {
+  $("#footerGenres").innerHTML = Object.entries(GENRES)
+    .map(([k, g]) => `<li><button type="button" data-go-genre="${esc(k)}">${esc(g.name)}</button></li>`).join("");
+}
+buildFooterGenres();
+$("#year").textContent = new Date().getFullYear();
+document.querySelector(".site-footer").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  if (b.dataset.goPeriod) { state.period = b.dataset.goPeriod; history.replaceState(null, "", "#" + state.period); }
+  if (b.dataset.goGenre) { state.genres = new Set([b.dataset.goGenre]); }
+  if (b.dataset.goTix) { state.tix = b.dataset.goTix; $("#tix").value = state.tix; }
+  render();
+  window.scrollTo({ top: 0 });
+});
+
+/* ---------- scroll to top ---------- */
+const toTop = $("#toTop");
+const updateToTop = () => toTop.classList.toggle("show", window.scrollY > 600);
+window.addEventListener("scroll", updateToTop, { passive: true });
+updateToTop();
+toTop.onclick = () => {
+  window.scrollTo({ top: 0 });
+  $("#themeBtn").focus({ preventScroll: true });
+};
+</script>
+</body>
+</html>
