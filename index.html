@@ -7,302 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --cover: url("https://images.unsplash.com/photo-1720623784273-f9388b9aa535?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D");
-  --bg: #f3f0fa;
-  --surface: #ffffff;
-  --surface-2: #e9e4f5;
-  --ink: #1b1030;
-  --ink-soft: #5d5275;
-  --line: #d6cdea;
-  --uv: #6d28d9;
-  --uv-ink: #ffffff;
-  --ok: #0f7a4a;
-  --warn: #a35a00;
-  --bad: #b4234d;
-  --info: #2756b8;
-  --g-techno: #6d28d9;
-  --g-house: #d9387a;
-  --g-dnb: #0e8a7a;
-  --g-trance: #2f6fe0;
-  --g-dubstep: #4f7d12;
-  --g-hard: #c2410c;
-  --g-psy: #a21caf;
-  --g-garage: #b8860b;
-  color-scheme: light;
-  box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #140a26; --surface: #1f1238; --surface-2: #2a1a4a; --ink: #f2ecff; --ink-soft: #b3a6d1;
-    --line: #3a2a5e; --uv: #a78bfa; --uv-ink: #140a26; --ok: #4ade9a; --warn: #fbbf4b; --bad: #fb7194; --info: #7aa7ff;
-    --g-techno: #a78bfa; --g-house: #ff6fae; --g-dnb: #2ee6c8; --g-trance: #6ea8ff; --g-dubstep: #a6e34a;
-    --g-hard: #ff8a4c; --g-psy: #f472f6; --g-garage: #ffd34d; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #140a26; --surface: #1f1238; --surface-2: #2a1a4a; --ink: #f2ecff; --ink-soft: #b3a6d1;
-  --line: #3a2a5e; --uv: #a78bfa; --uv-ink: #140a26; --ok: #4ade9a; --warn: #fbbf4b; --bad: #fb7194; --info: #7aa7ff;
-  --g-techno: #a78bfa; --g-house: #ff6fae; --g-dnb: #2ee6c8; --g-trance: #6ea8ff; --g-dubstep: #a6e34a;
-  --g-hard: #ff8a4c; --g-psy: #f472f6; --g-garage: #ffd34d; color-scheme: dark;
-}
-*, *::before, *::after { box-sizing: inherit; }
-html { height: 100%; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 140px); }
-body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font: 400 1rem/1.55 "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-a { color: inherit; }
-:focus-visible { outline: 3px solid var(--uv); outline-offset: 2px; border-radius: 6px; }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
-
-/* Hero */
-header.hero { padding-top: clamp(28px, 6vw, 64px); padding-bottom: clamp(28px, 5vw, 56px); }
-.brand { font: 600 .95rem/1 "Unbounded", system-ui, sans-serif; letter-spacing: .02em; color: var(--ink-soft); margin: 0 0 clamp(20px, 4vw, 40px); display: flex; justify-content: space-between; align-items: center; }
-.brand button { font: 500 .85rem "Manrope", sans-serif; background: none; border: 1px solid var(--line); color: var(--ink-soft); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
-h1 {
-  font: 800 clamp(2.4rem, 9vw, 6.4rem)/.92 "Unbounded", system-ui, sans-serif;
-  letter-spacing: -.03em; margin: 0; max-width: 12ch;
-}
-h1 .count { display: block; font-weight: 400; color: var(--ink-soft); font-size: .42em; letter-spacing: -.01em; margin-top: .5em; line-height: 1.2; }
-
-
-/* Cover photo hero */
-header.hero {
-  position: relative; isolation: isolate; color: #fff;
-  background-color: #12062a;
-  background-image:
-    linear-gradient(180deg, rgba(10, 4, 24, .55) 0%, rgba(10, 4, 24, .35) 40%, rgba(10, 4, 24, .88) 100%),
-    var(--cover);
-  background-size: cover; background-position: center 45%;
-}
-header.hero .brand { color: #fff; }
-header.hero .logo { font-weight: 800; font-size: 1.05rem; letter-spacing: -.01em; }
-header.hero .brand button { color: #fff; border-color: rgba(255, 255, 255, .45); background: rgba(10, 4, 24, .25); }
-header.hero h1 { color: #fff; text-shadow: 0 2px 24px rgba(10, 4, 24, .5); }
-header.hero h1 .count { color: rgba(255, 255, 255, .82); }
-header.hero .period { background: rgba(255, 255, 255, .14); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-header.hero .period button { color: rgba(255, 255, 255, .85); }
-header.hero .period button[aria-pressed="true"] { background: #fff; color: #1b1030; }
-header.hero .source { color: rgba(255, 255, 255, .85); }
-.source[hidden] { display: none; }
-header.hero .source button { color: #fff; border-color: #fff; }
-
-/* Period switch */
-.period { display: inline-flex; margin-top: 28px; background: var(--surface-2); border-radius: 999px; padding: 5px; gap: 4px; }
-.period button {
-  font: 600 clamp(.85rem, 2.4vw, 1rem) "Unbounded", system-ui, sans-serif; border: 0; background: transparent; color: var(--ink-soft);
-  padding: 10px clamp(14px, 3vw, 24px); border-radius: 999px; cursor: pointer;
-}
-.period button[aria-pressed="true"] { background: var(--uv); color: var(--uv-ink); }
-.source { margin: 16px 0 0; font-size: .9rem; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
-.source .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-soft); display: inline-block; margin-right: 6px; }
-.source[data-state="live"] .dot { background: var(--ok); }
-.source[data-state="error"] .dot { background: var(--warn); }
-.source a { color: var(--ink); font-weight: 600; text-underline-offset: 3px; }
-.source button { font: 600 .85rem "Manrope", sans-serif; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
-
-/* Sticky filter bar */
-.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding: 12px 0; }
-.bar-inner { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.chips { display: flex; gap: 6px; overflow-x: auto; flex: 1 1 420px; padding-bottom: 2px; padding-right: 24px; scrollbar-width: thin;
-  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
-.chip {
-  --c: var(--ink-soft); flex: none; font: 600 .85rem "Manrope", sans-serif; border: 1.5px solid var(--c); color: var(--c);
-  background: transparent; border-radius: 999px; padding: 5px 12px; cursor: pointer;
-}
-.chip[aria-pressed="true"] { background: var(--c); color: var(--bg); }
-.controls { display: flex; gap: 8px; flex: 1 1 280px; }
-.controls input, .controls select {
-  font: 500 .9rem "Manrope", sans-serif; background: var(--surface); color: var(--ink); border: 1px solid var(--line);
-  border-radius: 10px; padding: 8px 12px; min-width: 0;
-}
-.controls input { flex: 1; }
-
-/* Date strip */
-.strip { display: flex; gap: 6px; overflow-x: auto; padding: 18px 0 6px; scrollbar-width: thin; }
-.day {
-  flex: none; min-width: 58px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
-  padding: 8px 12px 7px; white-space: nowrap; cursor: pointer; color: var(--ink); font: inherit;
-}
-.day[disabled] { opacity: .4; cursor: default; }
-.day .dw { font-size: .72rem; color: var(--ink-soft); display: block; }
-.day .dn { font: 600 1.15rem/1.2 "Unbounded", sans-serif; display: block; }
-.day .dots { display: flex; justify-content: center; gap: 3px; height: 6px; margin-top: 4px; }
-.day .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
-
-/* Day groups */
-main { padding-bottom: 24px; }
-.group { margin-top: 34px; }
-.group h2 { font: 600 clamp(1.15rem, 3vw, 1.5rem)/1.2 "Unbounded", sans-serif; margin: 0 0 14px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
-.group h2 small { font: 500 .9rem "Manrope", sans-serif; color: var(--ink-soft); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 14px; }
-
-/* Event card: styled like a flyer stub */
-.ev {
-  --c: var(--uv); background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.ev-top { background: var(--band, var(--c)); color: var(--bg); padding: 12px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; }
-.ev-top .genre { font: 800 1rem "Unbounded", sans-serif; }
-.ev-top .time { font-weight: 700; font-size: .9rem; white-space: nowrap; }
-.ev-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.ev h3 { font: 600 1.2rem/1.2 "Unbounded", sans-serif; margin: 0; }
-.ev .org { margin: -6px 0 0; font-size: .88rem; color: var(--ink-soft); }
-.ev .org strong { color: var(--ink); font-weight: 600; }
-.org-link { font: inherit; font-weight: 600; color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
-.org-link:hover { text-decoration-color: var(--ink); }
-.controls { flex-wrap: wrap; }
-.controls input { flex: 2 1 180px; }
-.controls select { flex: 1 1 140px; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag { font-size: .78rem; font-weight: 600; background: var(--surface-2); color: var(--ink-soft); padding: 2px 9px; border-radius: 999px; }
-.lineup { margin: 0; color: var(--ink); font-weight: 500; }
-.lineup span { color: var(--ink-soft); font-weight: 400; }
-.venue { margin: 0; font-size: .92rem; color: var(--ink-soft); }
-.venue a { color: var(--ink); font-weight: 600; text-decoration-color: var(--line); text-underline-offset: 3px; }
-.tix { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 12px; background: var(--surface-2); border-radius: 10px; font-size: .88rem; }
-.status { font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
-.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-.s-onsale { color: var(--ok); } .s-low { color: var(--warn); } .s-soldout { color: var(--bad); } .s-soon { color: var(--info); } .s-door { color: var(--ink-soft); }
-.price { font-weight: 700; }
-.updated { color: var(--ink-soft); margin-left: auto; font-size: .8rem; }
-.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 4px; }
-.btn {
-  font: 700 .88rem "Manrope", sans-serif; text-decoration: none; border-radius: 999px; padding: 8px 14px;
-  border: 1.5px solid var(--line); color: var(--ink); background: transparent;
-}
-.btn:hover { border-color: var(--ink-soft); }
-.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.btn.primary:hover { background: var(--uv); border-color: var(--uv); color: var(--uv-ink); }
-.btn.muted { opacity: .7; }
-
-.empty { margin: 60px 0; padding: 32px; border: 2px dashed var(--line); border-radius: 16px; text-align: center; color: var(--ink-soft); }
-.empty strong { display: block; color: var(--ink); font: 600 1.2rem "Unbounded", sans-serif; margin-bottom: 6px; }
-.empty button { margin-top: 14px; }
-/* Footer */
-.site-footer { background: var(--surface); border-top: 1px solid var(--line); margin-top: 40px; color: var(--ink-soft); font-size: .92rem; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 32px 28px; padding-top: 48px; padding-bottom: 36px; }
-.footer-logo { font: 800 1.5rem/1 "Unbounded", system-ui, sans-serif; letter-spacing: -.02em; color: var(--ink); margin: 0 0 12px; }
-.footer-brand p:last-child { margin: 0; max-width: 34ch; }
-.footer-col h2 { font: 600 .95rem "Unbounded", system-ui, sans-serif; color: var(--ink); margin: 0 0 12px; }
-.footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-.footer-col li button { font: inherit; color: var(--ink-soft); background: none; border: 0; padding: 4px 0; cursor: pointer; text-align: left; }
-.footer-col li button:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.footer-col p { margin: 0 0 14px; }
-.footer-cta { display: inline-flex; }
-.footer-bottom { border-top: 1px solid var(--line); padding-top: 20px; padding-bottom: calc(28px + 64px); display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: .84rem; }
-.footer-bottom p { margin: 0; }
-.footer-bottom p:last-child { margin-left: auto; }
-@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
-@media (max-width: 420px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom p:last-child { margin-left: 0; } }
-
-/* Scroll to top */
-.to-top-wrap {
-  position: fixed; right: 0; bottom: 0; z-index: 6; pointer-events: none;
-  padding: 0 clamp(14px, 3vw, 28px) calc(clamp(14px, 3vw, 28px) + env(safe-area-inset-bottom, 0px));
-}
-.to-top {
-  pointer-events: auto; font: 600 .9rem "Unbounded", system-ui, sans-serif; display: inline-flex; align-items: center; gap: 8px;
-  background: var(--ink); color: var(--bg); border: 0; border-radius: 999px; padding: 12px 18px; cursor: pointer;
-  box-shadow: 0 6px 24px rgba(40, 10, 90, .35);
-  opacity: 0; transform: translateY(12px); visibility: hidden;
-  transition: opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
-}
-.to-top.show { opacity: 1; transform: none; visibility: visible; transition: opacity .2s ease, transform .2s ease; }
-.to-top:hover { background: var(--uv); color: var(--uv-ink); }
-.to-top svg { width: 16px; height: 16px; }
-@media (prefers-reduced-motion: reduce) { .to-top, .to-top.show { transition: none; } }
-
-/* Filters toggle (shown on phones and short landscape screens) */
-.filter-toggle {
-  display: none; flex: none; align-items: center; gap: 6px; font: 700 .85rem "Manrope", sans-serif;
-  background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer;
-}
-.filter-toggle[aria-expanded="true"] { border-color: var(--ink); }
-.filter-toggle svg { width: 14px; height: 14px; }
-
-/* Respect notches and rounded corners in landscape */
-.wrap {
-  padding-left: max(clamp(16px, 4vw, 40px), env(safe-area-inset-left, 0px));
-  padding-right: max(clamp(16px, 4vw, 40px), env(safe-area-inset-right, 0px));
-}
-.to-top-wrap { padding-right: max(clamp(14px, 3vw, 28px), env(safe-area-inset-right, 0px)); }
-
-/* Tablets */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .bar-inner { gap: 10px 12px; }
-  .chips { flex: 1 1 100%; }
-  .controls { flex: 1 1 100%; flex-wrap: nowrap; }
-}
-
-/* Phones, plus phones turned sideways: collapse filters into a toggle */
-@media (max-width: 640px), (max-height: 520px) and (orientation: landscape) {
-  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 76px); }
-  .bar { padding: 10px 0; }
-  .bar-inner { gap: 10px 8px; }
-  .chips { flex: 1 1 0; min-width: 0; }
-  .filter-toggle { display: inline-flex; }
-  .controls { flex: 1 1 100%; }
-  .bar:not(.open) .controls { display: none; }
-  .group { margin-top: 26px; }
-}
-
-/* Phones */
-@media (max-width: 640px) {
-  header.hero { padding-top: 22px; }
-  .period { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; margin-top: 22px; }
-  .period button { padding: 10px 6px; }
-  .controls input, .controls select { flex: 1 1 100%; }
-}
-
-/* Smallest phones */
-@media (max-width: 380px) {
-  h1 { font-size: 2.05rem; }
-  .brand { margin-bottom: 18px; }
-  .period button { font-size: .78rem; }
-  .chip { padding: 5px 10px; }
-  .ev-top { padding: 10px 14px; }
-  .ev-body { padding: 12px 14px 14px; }
-  .ev h3 { font-size: 1.08rem; }
-  .btn { padding: 8px 12px; font-size: .84rem; }
-  .day { min-width: 52px; padding-inline: 9px; }
-}
-
-/* Hide the button label on small phones */
-@media (max-width: 480px) {
-  .to-top-label { display: none; }
-  .to-top { padding: 13px; }
-}
-
-/* Short landscape screens: compact hero */
-@media (max-height: 520px) and (orientation: landscape) {
-  header.hero { padding-top: 14px; padding-bottom: 18px; }
-  .brand { margin-bottom: 12px; }
-  h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); max-width: none; }
-  h1 .count { font-size: .5em; margin-top: .35em; }
-  .period { margin-top: 14px; }
-  .period button { padding: 8px 16px; }
-  .source { margin-top: 10px; }
-  .strip { padding-top: 12px; }
-}
-
-/* Touch screens: bigger tap targets, no zoom on inputs */
-@media (pointer: coarse) {
-  .chip { min-height: 38px; }
-  .btn { min-height: 42px; display: inline-flex; align-items: center; }
-  .filter-toggle, .brand button { min-height: 38px; }
-  .controls input, .controls select { font-size: 16px; min-height: 44px; }
-  .org-link { padding: 4px 0; }
-}
-
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -315,7 +20,6 @@ main { padding-bottom: 24px; }
     <button type="button" data-p="week">By week</button>
     <button type="button" data-p="month">By month</button>
   </div>
-  <p class="source" id="source" data-state="sample" aria-live="polite" hidden><span><span class="dot"></span><span id="sourceText">Showing sample events</span></span></p>
  </div>
 </header>
 
@@ -388,12 +92,8 @@ main { padding-bottom: 24px; }
 </footer>
 
 <script>
-/* ===========================================================
-   EVENT DATA — replace these sample events with real ones.
-   dayOffset = days from today (0 = today). For real data,
-   use a fixed "date": "2026-11-21" instead of dayOffset.
-   ticket.status: onsale | low | soldout | soon | door
-   =========================================================== */
+/* Genre names and their colors. Genres typed in the sheet that
+   aren't listed here still work and use the default purple. */
 const GENRES = {
   techno:  { name: "Techno",       c: "--g-techno" },
   house:   { name: "House",        c: "--g-house" },
@@ -405,112 +105,13 @@ const GENRES = {
   garage:  { name: "UK Garage",    c: "--g-garage" }
 };
 
-const SAMPLE_EVENTS = [
-  { id: 1, title: "Concrete Cathedral", dayOffset: 0, start: "22:00", end: "06:00", genres: ["techno", "trance"], style: ["Warehouse", "All night long"],
-    lineup: ["Vera Kolt", "Monolith Unit", "Sable"], venue: "Warehouse 9", area: "Port District",
-    ticket: { status: "low", price: "₱1,800", updated: 40 },
-    links: { tickets: "https://example.com/tickets/concrete-cathedral", website: "https://example.com", instagram: "https://instagram.com/", facebook: "https://facebook.com/" } },
-  { id: 2, title: "Sunset Groove Session", dayOffset: 0, start: "16:00", end: "23:00", genre: "house", style: ["Rooftop", "Day rave"],
-    lineup: ["Lua Marin", "Kofi Ade", "Deepwell b2b Rana"], venue: "Skydeck 31", area: "Central",
-    ticket: { status: "onsale", price: "₱1,200", updated: 180 },
-    links: { tickets: "https://example.com/tickets/sunset-groove", instagram: "https://instagram.com/" } },
-  { id: 3, title: "Amen Break Club", dayOffset: 1, start: "23:00", end: "05:00", genres: ["dnb", "dubstep"], style: ["Underground", "Basement"],
-    lineup: ["Kinetic", "Rollah", "MC Fuse"], venue: "The Vault", area: "Old Town",
-    ticket: { status: "onsale", price: "₱900", updated: 300 },
-    links: { tickets: "https://example.com/tickets/amen-break", website: "https://example.com", instagram: "https://instagram.com/", tiktok: "https://tiktok.com/" } },
-  { id: 4, title: "Euphoria Rising", dayOffset: 2, start: "21:00", end: "04:00", genre: "trance", style: ["Club", "Laser show"],
-    lineup: ["Arielle Sky", "Nova Theorem", "Halcyon"], venue: "Prism Hall", area: "North Bay",
-    ticket: { status: "soldout", price: "₱2,500", updated: 25 },
-    links: { tickets: "https://example.com/tickets/euphoria", facebook: "https://facebook.com/", instagram: "https://instagram.com/" } },
-  { id: 5, title: "Low End Theory", dayOffset: 3, start: "22:00", end: "03:00", genre: "dubstep", style: ["Soundsystem", "Underground"],
-    lineup: ["Grimewave", "Subdepth", "Tess Ojo"], venue: "Bunker 4", area: "Industrial Row",
-    ticket: { status: "door", price: "₱600 at the door", updated: 1440 },
-    links: { website: "https://example.com", instagram: "https://instagram.com/", soundcloud: "https://soundcloud.com/" } },
-  { id: 6, title: "Hard Dance Nation", dayOffset: 5, start: "20:00", end: "05:00", genres: ["hard", "trance"], style: ["Arena", "Festival style"],
-    lineup: ["Ravek", "Blitz Theory", "Kaira"], venue: "Riverside Arena", area: "Riverside",
-    ticket: { status: "low", price: "₱3,200", updated: 90 },
-    links: { tickets: "https://example.com/tickets/hard-dance", website: "https://example.com", facebook: "https://facebook.com/", instagram: "https://instagram.com/" } },
-  { id: 7, title: "Forest Frequencies", dayOffset: 6, start: "12:00", end: "12:00 +1", genre: "psy", style: ["Open air", "24 hours", "Camping"],
-    lineup: ["Mantra Loop", "Sylvan", "Orbital Seed", "Ayla Dune"], venue: "Pinegrove Campsite", area: "Highlands",
-    ticket: { status: "onsale", price: "₱4,500", updated: 600 },
-    links: { tickets: "https://example.com/tickets/forest-freq", website: "https://example.com", instagram: "https://instagram.com/" } },
-  { id: 8, title: "2-Step Social", dayOffset: 9, start: "21:00", end: "02:00", genre: "garage", style: ["Club", "Throwback"],
-    lineup: ["Shuffle Theory", "Jae Bloom"], venue: "Room Two", area: "Central",
-    ticket: { status: "onsale", price: "₱800", updated: 2000 },
-    links: { tickets: "https://example.com/tickets/2step", instagram: "https://instagram.com/", tiktok: "https://tiktok.com/" } },
-  { id: 9, title: "Pulse on the Water", dayOffset: 12, start: "18:00", end: "23:30", genres: ["house", "garage"], style: ["Boat party", "Limited capacity"],
-    lineup: ["Marisol", "Coastline Collective"], venue: "Pier 3 Departures", area: "Harbour",
-    ticket: { status: "soon", price: "From ₱2,000", updated: 240, saleIn: [3, "12:00"] },
-    links: { website: "https://example.com", instagram: "https://instagram.com/", facebook: "https://facebook.com/" } },
-  { id: 10, title: "Machine Room", dayOffset: 15, start: "23:00", end: "07:00", genre: "techno", style: ["Afterhours", "No phones on the floor"],
-    lineup: ["Ilse Brandt", "Cold Signal", "Rhea"], venue: "Substation", area: "Industrial Row",
-    ticket: { status: "onsale", price: "₱1,500", updated: 120 },
-    links: { tickets: "https://example.com/tickets/machine-room", instagram: "https://instagram.com/", soundcloud: "https://soundcloud.com/" } },
-  { id: 11, title: "Jungle Massive", dayOffset: 19, start: "22:00", end: "04:00", genre: "dnb", style: ["Warehouse", "Jungle special"],
-    lineup: ["Ragga Twinz", "Kinetic", "Duppy"], venue: "Warehouse 9", area: "Port District",
-    ticket: { status: "soon", price: "From ₱1,100", updated: 60, saleIn: [1, "12:00"] },
-    links: { website: "https://example.com", facebook: "https://facebook.com/", instagram: "https://instagram.com/" } },
-  { id: 12, title: "Gatecrasher Revival", dayOffset: 24, start: "21:00", end: "05:00", genre: "trance", style: ["Club", "Classics"],
-    lineup: ["Arielle Sky", "Paradox Twin"], venue: "Prism Hall", area: "North Bay",
-    ticket: { status: "onsale", price: "₱2,200", updated: 3000 },
-    links: { tickets: "https://example.com/tickets/revival", website: "https://example.com", instagram: "https://instagram.com/" } },
-  { id: 13, title: "Wobble Fest", dayOffset: 27, start: "15:00", end: "02:00", genre: "dubstep", style: ["Open air", "Festival"],
-    lineup: ["Subdepth", "Grimewave", "Nyx Volt", "Bassquake"], venue: "Eastfield Grounds", area: "East Fields",
-    ticket: { status: "low", price: "₱3,800", updated: 200 },
-    links: { tickets: "https://example.com/tickets/wobble", website: "https://example.com", instagram: "https://instagram.com/", tiktok: "https://tiktok.com/" } },
-  { id: 14, title: "Deep Space Disco", dayOffset: 34, start: "22:00", end: "04:00", genre: "house", style: ["Club", "Disco edits"],
-    lineup: ["Lua Marin", "Velvet Arcade"], venue: "Room Two", area: "Central",
-    ticket: { status: "onsale", price: "₱1,000", updated: 500 },
-    links: { tickets: "https://example.com/tickets/deep-space", instagram: "https://instagram.com/" } },
-  { id: 15, title: "Year End Rave", dayOffset: 41, start: "21:00", end: "08:00", genres: ["techno", "house", "trance"], style: ["Warehouse", "Special event"],
-    lineup: ["Vera Kolt", "Ilse Brandt", "Cold Signal", "Sable"], venue: "Warehouse 9", area: "Port District",
-    ticket: { status: "low", price: "₱2,800", updated: 75 },
-    links: { tickets: "https://example.com/tickets/year-end", website: "https://example.com", instagram: "https://instagram.com/", facebook: "https://facebook.com/" } },
-  { id: 16, title: "Liquid Sundays", dayOffset: 48, start: "15:00", end: "22:00", genre: "dnb", style: ["Day rave", "Poolside"],
-    lineup: ["Rollah", "Mira Flow"], venue: "Lagoon Club", area: "Harbour",
-    ticket: { status: "soon", price: "From ₱1,300", updated: 300, saleIn: [7, "10:00"] },
-    links: { website: "https://example.com", instagram: "https://instagram.com/" } },
-  { id: 17, title: "Reverze Night", dayOffset: 56, start: "20:00", end: "04:00", genre: "hard", style: ["Arena", "Pyro show"],
-    lineup: ["Ravek", "Kaira", "Stormfront"], venue: "Riverside Arena", area: "Riverside",
-    ticket: { status: "onsale", price: "₱3,500", updated: 900 },
-    links: { tickets: "https://example.com/tickets/reverze", facebook: "https://facebook.com/", tiktok: "https://tiktok.com/" } },
-  { id: 18, title: "Moonrise Gathering", dayOffset: 63, start: "14:00", end: "10:00 +1", genre: "psy", style: ["Open air", "Beach"],
-    lineup: ["Mantra Loop", "Ayla Dune", "Fractal Kin"], venue: "Coral Point", area: "South Coast",
-    ticket: { status: "onsale", price: "₱3,900", updated: 1600 },
-    links: { tickets: "https://example.com/tickets/moonrise", website: "https://example.com", instagram: "https://instagram.com/" } },
-  { id: 19, title: "Garage Classics", dayOffset: 76, start: "21:00", end: "03:00", genre: "garage", style: ["Club", "Throwback"],
-    lineup: ["Shuffle Theory", "Jae Bloom", "MC Rhythm"], venue: "The Vault", area: "Old Town",
-    ticket: { status: "soon", price: "TBA", updated: 2500, onSaleNote: "Tickets announced soon" },
-    links: { instagram: "https://instagram.com/", facebook: "https://facebook.com/" } }
-];
-
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 const today = new Date(); today.setHours(0,0,0,0);
 const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
 const key = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-const SAMPLE_ORGANIZERS = {
-  1: "Concrete Collective", 2: "Golden Hour Club", 3: "Breakbeat Society", 4: "Euphoria Events", 5: "Sub Culture Sound",
-  6: "Hard Dance Nation", 7: "Pinegrove Tribe", 8: "Shuffle Theory", 9: "Golden Hour Club", 10: "Concrete Collective",
-  11: "Breakbeat Society", 12: "Euphoria Events", 13: "Sub Culture Sound", 14: "Velvet Arcade", 15: "Concrete Collective",
-  16: "Breakbeat Society", 17: "Hard Dance Nation", 18: "Pinegrove Tribe", 19: "Shuffle Theory"
-};
-SAMPLE_EVENTS.forEach(e => { if (!e.organizer) e.organizer = SAMPLE_ORGANIZERS[e.id] || ""; });
 
 let EVENTS = [];
-function prepare(list) {
-  list.forEach(e => {
-    if (!e._date) e._date = e.date instanceof Date ? e.date : e.date ? new Date(e.date + "T00:00:00") : addDays(today, e.dayOffset || 0);
-    if (!e.genres || !e.genres.length) e.genres = [e.genre || "techno"];
-    if (e.ticket.saleIn && !e.ticket.saleAt) {
-      const [days, time] = e.ticket.saleIn, [h, m] = time.split(":");
-      const at = addDays(today, days); at.setHours(+h, +m);
-      e.ticket.saleAt = at;
-    }
-  });
-  return list;
-}
-EVENTS = prepare(SAMPLE_EVENTS);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
 const ago = m => m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m/60)}h ago` : `${Math.round(m/1440)}d ago`;
 const STATUS = { onsale: "On sale", low: "Selling fast", soldout: "Sold out", soon: "On sale soon", door: "Tickets at the door" };
@@ -568,7 +169,7 @@ const GROUPERS = {
 };
 
 /* ---------- state ---------- */
-const state = { period: "week", genres: new Set(), q: "", tix: "", org: "" };
+const state = { period: "week", genres: new Set(), q: "", tix: "", org: "", status: "loading" };
 const fromHash = () => { const h = location.hash.slice(1); if (VIEWS[h]) state.period = h; };
 fromHash();
 
@@ -682,6 +283,19 @@ function render() {
   allChip.setAttribute("aria-pressed", state.genres.size === 0);
   chips.querySelectorAll("[data-g]").forEach(b => b.setAttribute("aria-pressed", state.genres.has(b.dataset.g)));
 
+  if (state.status !== "ready") {
+    const msg = {
+      loading: ["Loading events…", "Fetching the latest raves."],
+      error: ["Couldn’t load events", "Check your connection and try again."]
+    }[state.status];
+    $("#count").textContent = msg[0];
+    $("#strip").hidden = true;
+    $("#list").innerHTML = `<div class="empty" role="status"><strong>${msg[0]}</strong>${msg[1]}${state.status === "error" ? `<br><button class="btn" type="button" id="retry">Try again</button>` : ""}</div>`;
+    const r = document.getElementById("retry");
+    if (r) r.onclick = () => loadEvents(true);
+    return;
+  }
+
   const upcoming = EVENTS.filter(e => e._date >= today && matches(e))
     .sort((a, b) => a._date - b._date || a.start.localeCompare(b.start));
   const n = upcoming.length;
@@ -738,15 +352,14 @@ function render() {
 
 
 /* ===========================================================
-   GOOGLE SHEET DATABASE
-   The page reads this sheet through the viewer's Google Drive
-   connector. Edit rows in the sheet; the page refreshes every
-   few minutes. Sample events show when the sheet can't be read.
+   EVENTS DATABASE: Google Sheets
+   In the sheet: File > Share > Publish to web > choose the
+   events tab > Comma-separated values (.csv) > Publish.
+   Paste the link it gives you below. Edits in the sheet show
+   up on the site within about two minutes.
    =========================================================== */
-const SHEET_ID = "193BWyJ7jiyZaiBPln_fNrtos6TkHPCr4rzqSlfAcmWE";
-const SHEET_URL = "https://docs.google.com/spreadsheets/d/193BWyJ7jiyZaiBPln_fNrtos6TkHPCr4rzqSlfAcmWE/edit";
-const DRIVE = "Google Drive";
-const READ_INPUT = { fileId: SHEET_ID, exportMimeType: "text/csv" };
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSV1bEUDUnlyfHkqbdsJJ3yM-FmK4py6JFvACxR7sQWJfyZsrgpz9d_urrSJOtBrhalsQXo2HE0rauh/pub?output=csv";
+const REFRESH_MS = 2 * 60 * 1000;
 
 function parseCSV(text) {
   const rows = []; let row = [], cell = "", q = false;
@@ -771,27 +384,6 @@ const looksLikeSheet = t => {
   const first = t.replace(/^\uFEFF/, "").split(/\r?\n/)[0].toLowerCase();
   return first.includes("event name") && first.includes("date");
 };
-function findCSV(x, depth = 0) {
-  if (x == null || depth > 6) return null;
-  if (typeof x === "string") {
-    if (looksLikeSheet(x)) return x;
-    const compact = x.replace(/\s+/g, "");
-    if (compact.length > 40 && /^[A-Za-z0-9+/=_-]+$/.test(compact)) {
-      try {
-        const bin = atob(compact.replace(/-/g, "+").replace(/_/g, "/"));
-        const txt = new TextDecoder().decode(Uint8Array.from(bin, ch => ch.charCodeAt(0)));
-        if (looksLikeSheet(txt)) return txt;
-      } catch (e) {}
-    }
-    if (/^\s*[\[{]/.test(x)) { try { return findCSV(JSON.parse(x), depth + 1); } catch (e) {} }
-    return null;
-  }
-  if (typeof x === "object") {
-    for (const v of Object.values(x)) { const r = findCSV(v, depth + 1); if (r) return r; }
-  }
-  return null;
-}
-
 function parseDate(s) {
   let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
   if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
@@ -859,66 +451,26 @@ function rowsToEvents(rows) {
   return list;
 }
 
-function setSource(stateName, text, extra) {
-  const el = $("#source");
-  el.dataset.state = stateName;
-  $("#sourceText").textContent = text;
-  el.querySelectorAll(".extra").forEach(n => n.remove());
-  if (extra) { extra.classList.add("extra"); el.append(extra); }
-  // The data source stays behind the scenes; only show this line when the viewer must allow access.
-  el.hidden = !(extra && extra.tagName === "BUTTON");
-}
-function sheetLink() {
-  const a = document.createElement("a");
-  a.href = SHEET_URL; a.target = "_blank"; a.rel = "noopener noreferrer";
-  a.textContent = "Edit events in Google Sheets";
-  return a;
-}
-function useSample(message) {
-  EVENTS = prepare(SAMPLE_EVENTS);
-  render();
-  setSource("error", message);
-}
-function applyResult(result) {
-  const csv = findCSV(result.payload) || findCSV(result.structuredContent) || findCSV(result.content);
-  if (!csv) {
-    setSource("error", "The sheet opened, but no events table was found. Check that row 1 still has the column headers, including Event name and Date.", sheetLink());
-    return;
+async function loadEvents(showLoading) {
+  if (!/^https:\/\//.test(SHEET_CSV_URL)) {
+    state.status = "setup"; render(); return;
   }
-  EVENTS = rowsToEvents(parseCSV(csv));
-  buildChips();
-  render();
-  const when = result.cache && result.cache.storedAt ? new Date(result.cache.storedAt) : new Date();
-  setSource("live", `Live from Google Sheets, checked ${when.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}`, sheetLink());
-}
-function handleError(err, mcp) {
-  const code = err && err.code;
-  if (code === "needs_reauth") return useSample("Showing sample events. Reconnect Google Drive in claude.ai Settings, then Connectors, to load the live list.");
-  if (code === "server_not_connected" || code === "selection_required") return useSample("Showing sample events. Add Google Drive in claude.ai Settings, then Connectors, to load the live list.");
-  if (code === "blocked_by_policy") return useSample("Showing sample events. Your organization doesn’t allow Google Drive here.");
-  if (code === "not_in_manifest" || code === "not_granted" || code === "capability_disabled") return useSample("Showing sample events. Google Drive access is turned off for this page.");
-  if (code === "approval_required") {
-    const b = document.createElement("button");
-    b.type = "button"; b.textContent = "Allow Google Drive";
-    b.onclick = () => mcp.callTool(DRIVE, "download_file_content", READ_INPUT).then(applyResult).catch(e => handleError(e, mcp));
-    EVENTS = prepare(SAMPLE_EVENTS); render();
-    return setSource("error", "Showing sample events. This page needs your OK to read the events sheet.", b);
+  if (showLoading || !EVENTS.length) { state.status = "loading"; render(); }
+  try {
+    const url = SHEET_CSV_URL + (SHEET_CSV_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const text = await res.text();
+    if (!looksLikeSheet(text)) throw new Error("The link didn’t return the events table");
+    EVENTS = rowsToEvents(parseCSV(text));
+    state.status = "ready";
+    buildChips();
+    render();
+  } catch (err) {
+    console.error("Could not load events:", err);
+    // Keep showing the last good list; only show the error if nothing has loaded yet.
+    if (!EVENTS.length || state.status !== "ready") { state.status = "error"; render(); }
   }
-  if (code === "tool_error") return setSource("error", "Google Drive couldn’t open the events sheet. Check that it still exists and that you have access.", sheetLink());
-  setSource("error", "Couldn’t reach Google Drive just now. The list will refresh automatically.");
-}
-
-async function connectSheet() {
-  const mcp = window.claude && window.claude.use ? await window.claude.use("mcp").catch(() => null) : null;
-  if (!mcp) {
-    setSource("sample", "Showing sample events. Open this page in Claude with Google Drive connected to see the live list.");
-    return;
-  }
-  setSource("sample", "Loading events from Google Sheets…");
-  mcp.watchTool(DRIVE, "download_file_content", READ_INPUT, ev => {
-    if (ev.type === "data") applyResult(ev.result);
-    else handleError(ev.error, mcp);
-  }, { cache: { staleTime: 60000, gcTime: 600000 }, refetchInterval: 300000 });
 }
 
 /* ---------- theme toggle ---------- */
@@ -931,7 +483,8 @@ $("#themeBtn").onclick = () => {
 try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 
 render();
-connectSheet();
+loadEvents();
+setInterval(() => loadEvents(false), REFRESH_MS);
 
 
 /* ---------- footer ---------- */
